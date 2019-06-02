@@ -1,8 +1,9 @@
-PROJECT_NAME=absent
-PROFILE=../profiles/common
-BUILD_TESTING=true
-PACKAGE_VERSION=0.0.1
-PACKAGE_REFERENCE=${PROJECT_NAME}/${PACKAGE_VERSION}@rvarago/stable
+PROJECT_NAME    =absent
+VERSION         =0.0.1
+
+PROFILE                 =../profiles/common
+BUILD_TESTING           =true
+CONAN_PACKAGE_REFERENCE =${PROJECT_NAME}/${VERSION}@rvarago/stable
 
 .PHONY: all conan-upload conan-package env-conan-package test install compile gen dep mk clean env env-test
 
@@ -21,10 +22,10 @@ install: compile
 	cd build && cmake --build . --target install
 
 conan-package: test
-	conan create . ${PACKAGE_REFERENCE}
+	conan create . ${CONAN_PACKAGE_REFERENCE}
 
 conan-upload: conan-package
-	conan upload ${PACKAGE_REFERENCE} --all -r ${REMOTE}
+	conan upload ${CONAN_PACKAGE_REFERENCE} --all -r ${REMOTE}
 
 test: compile
 	cd build && ctest .
