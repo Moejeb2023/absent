@@ -5,9 +5,13 @@ PROFILE                 =../profiles/common
 BUILD_TESTING           =true
 CONAN_PACKAGE_REFERENCE =${PROJECT_NAME}/${VERSION}@rvarago/stable
 
-.PHONY: all conan-upload conan-package env-conan-package test install compile gen dep mk clean env env-test
+.PHONY: all release conan-upload conan-package env-conan-package test install compile gen dep mk clean env env-test
 
 all: compile
+
+release:
+	git tag ${VERSION}
+	git push origin ${VERSION}
 
 env:
 	docker build -t ${PROJECT_NAME} .

@@ -1,8 +1,20 @@
 language: cpp
 
+env:
+  global:
+    - REMOTE_NAME=rvarago-remote
+
 services:
   - docker
 
 script:
   - make env-test
   - make env-conan-package
+
+after_success:
+  - |
+    if [ -n "$TRAVIS_TAG" ]; then
+      conan remote add ${REMOTE_NAME} "${CONAN_REMOTE_URL}"
+      conan user -p "${CONAN_PASSWORD}" -r benchmark "${CONAN_LOGIN_USERNAME}"
+      make upload-package REMOTE=${REMOTE_NAME}
+    fi
