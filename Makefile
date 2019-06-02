@@ -25,7 +25,7 @@ conan-package: test
 	conan create . ${CONAN_PACKAGE_REFERENCE}
 
 conan-upload: conan-package
-	conan upload ${CONAN_PACKAGE_REFERENCE} --all -r ${REMOTE}
+	conan upload --force ${CONAN_PACKAGE_REFERENCE} --all --retry 3 --retry-wait 10 --confirm -r ${REMOTE}
 
 test: compile
 	cd build && ctest .
