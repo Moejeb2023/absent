@@ -10,6 +10,7 @@ add_executable(${PROJECT_NAME}
         eval_test.cpp
         fmap_test.cpp
         foreach_test.cpp
+        sink_tests.cpp
         unique_ptr_test.cpp
 )
 
